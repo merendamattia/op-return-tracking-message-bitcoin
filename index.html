@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+      <h1>Tool per visualizzare messaggi presenti in una transazione Bitcoin</h1>
+
+        <table>
+          <tr>
+            <th>Message</th>
+            <th>Conferme</th>
+            <th>Block</th>
+            <th>Timestamp</th>
+            <th>Hash TX</th>
+          </tr>
+        </table>
+
+        <p id="demo"></p>
+        
+        <input type="text" name="enter" placeholder="Insert hash.." id="hashUser"/>
+        <input type="button" value="Search" OnClick="searchHash()"/>
+
+    </body>
+    <script src="scripts/main.js"></script>
+</html>
