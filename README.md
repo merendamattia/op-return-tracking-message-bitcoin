@@ -44,7 +44,7 @@ I cant see u but I still love you lili
 ## Funzionamento tool tracking messaggi `OP_RETURN`
 ### Installazione
 ```
-npm clone "this repository"
+git clone https://github.com/merendamattia/op-return-tracking-message-bitcoin.git
 ```
 ### Configurazione
 Inserire nel file `hash.txt` gli hash delle transazioni dei messaggi che si vogliono tracciare, ognuno in una riga diversa.  
