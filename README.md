@@ -1,6 +1,6 @@
 # Scrivere sulla Blockchain di Bitcoin tramite `OP_RETURN`
 ## Che cos'è l' `OP_RETURN`?
-È un campo di una transazione Bitcoin che permette la scrittura di 40 byte, cioè di 40 caratteri alfanumerici a piacere, che verranno legati per sempre alla transazione. Approfondimento storia a questo [link](https://bitcoin.stackexchange.com/questions/29554/explanation-of-what-an-op-return-transaction-looks-like).
+È un campo di una transazione Bitcoin che permette la scrittura di 40 byte [(Bitcoin Wiki)](https://en.bitcoin.it/wiki/Script), cioè di 40 caratteri alfanumerici a piacere, che verranno legati per sempre alla transazione. Approfondimento storia a questo [link](https://bitcoin.stackexchange.com/questions/29554/explanation-of-what-an-op-return-transaction-looks-like).
 
 ## `OP_RETURN` in una transazione [Spiegazione]
 Questo è una transazione Bitcoin:
@@ -44,7 +44,7 @@ I cant see u but I still love you lili
 ## Funzionamento tool tracking messaggi `OP_RETURN`
 ### Installazione
 ```
-npm clone "this repository"
+git clone https://github.com/merendamattia/op-return-tracking-message-bitcoin.git
 ```
 ### Configurazione
 Inserire nel file `hash.txt` gli hash delle transazioni dei messaggi che si vogliono tracciare, ognuno in una riga diversa.  
