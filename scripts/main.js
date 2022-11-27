@@ -1,9 +1,12 @@
 // Inserisce nella veriabile di sessione latestBlock il numero dell'ultimo blocco prodotto
 function getLatestBlock(){
-    fetch ("https://blockchain.info/latestblock")
+    fetch ("https://chain.api.btc.com/v3/block/latest")
+    //fetch ("https://blockchain.info/latestblock") //Problema CORS
     .then(x => x.json())
     .then(y => JSON.stringify(y))
-    .then(y => sessionStorage.setItem("latestBlock", y.substring(y.indexOf("height\":") + 8, y.indexOf(",", y.indexOf("height\":") + 9))));
+    .then(y => sessionStorage.setItem("latestBlock", parseInt(y.substring(y.indexOf("height\":") + 8, y.indexOf(",", y.indexOf("height\":") + 9)))))
+    .then(y => console.log("Latest block number:", sessionStorage.getItem("latestBlock")));
+    
 }
 
 // Ritorna l'OP_RETURN messaggio in esadecimale
@@ -74,7 +77,7 @@ function fetch_multiple_hash(hash){
 
 // Crea e popola una tabella con i dati dato un hash
 function fetch_single_hash(hash){
-    let file = explorer + hash;
+    let file = explorer + hash + cors;
 
     fetch (file)
     .then(x => x.json())
@@ -104,12 +107,14 @@ function searchHash(){
 
 // Main
 function main(){
+    getLatestBlock();
     fetch (hash_txt)
     .then(x => x.text())
     .then(y => fetch_multiple_hash(y.split(/\r?\n/)));
 }
 
 let explorer = "https://blockchain.info/rawtx/";
+let cors = "?cors=true";
 let hash_txt = "../txt/hash.txt";
 getLatestBlock();
 main();
