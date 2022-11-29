@@ -53,7 +53,7 @@ function makeTable(y){
     if(y.search("error") == -1){
         var table = "<table><tr>";
         table += ("<td>" + hex_to_text(y) + "</td>");
-        table += ("<td>" + (sessionStorage.getItem("latestBlock") - getBlock(y)) + "</td>");
+        table += ("<td>" + (sessionStorage.getItem("latestBlock") - getBlock(y) + 1) + "</td>");
         table += ("<td>" + getBlock(y) + "</td>");
         table += ("<td>" + getTimestamp(y) + "</td>");
         table += ("<td>" + "<a target=\"_blank\" href=\"https://blockchain.info/rawtx/" + getHash(y) + "\">" + getMinHash(getHash(y)) + "..</a>" + "</td>");
