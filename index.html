@@ -6,8 +6,10 @@
     </head>
     <body>
 
-      <h1 id="header">Tracking OP_RETURN message on Bitcoin's Blockchain</h1>
+      <h1 id="header">Tracking OP_RETURN message </h1>
+      <h3>on Bitcoin's Blockchain</h3>
 
+      <!-- Tabella contenente i risultati delle ricerche -->
       <div class="center">
         <table>
           <tr>
@@ -23,6 +25,7 @@
       </div>
         <hr>
 
+        <!-- Input Hash da cercare  -->
         <h3 class="input-group col-md-6 center">Search message</h3>
         <div class="input-group col-md-6 center">
           <div class="form-floating">
@@ -32,17 +35,22 @@
           <button class="btn btn-outline-secondary" type="button" id="button-addon2" OnClick="searchHash()">Search</button>
         </div>
 
+        <!-- Errori -->
+        <div class="center">
+          <p id="error"></p>
+        </div>
+
+        <!-- Reference GitHub -->
         <p>
           <a target="_blank" href="https://github.com/merendamattia/op-return-tracking-message-bitcoin">
-            Raw code on GitHub
+            <i>Raw code on GitHub</i>
           </a>
         </p>
         
+        <!-- Logo Bitcoin -->
         <div class="center">
           <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=023" style="width: 40px;">
-        </div>
-        
-
+        </div> 
     </body>
     <script src="scripts/main.js"></script>
 </html>

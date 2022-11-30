@@ -4,9 +4,7 @@ function getLatestBlock(){
     //fetch ("https://blockchain.info/latestblock") //Problema CORS
     .then(x => x.json())
     .then(y => JSON.stringify(y))
-    .then(y => sessionStorage.setItem("latestBlock", parseInt(y.substring(y.indexOf("height\":") + 8, y.indexOf(",", y.indexOf("height\":") + 9)))))
-    .then(y => console.log("Latest block number:", sessionStorage.getItem("latestBlock")));
-    
+    .then(y => sessionStorage.setItem("latestBlock", parseInt(y.substring(y.indexOf("height\":") + 8, y.indexOf(",", y.indexOf("height\":") + 9)))));
 }
 
 // Ritorna l'OP_RETURN messaggio in esadecimale
@@ -60,6 +58,11 @@ function makeTable(y){
         table += "</tr></table>";
         return table;
     }
+    else {
+        console.log("Hash non trovato nella blockchain!", "Hash cercato: " + sessionStorage.getItem("hashByUser"));
+        error = true;
+        checkError();
+    }
     return "";
     
 }
@@ -67,11 +70,21 @@ function makeTable(y){
 // Preleva i vari hash dal file di testo, crea e popola una tabella con i relativi dati per ognuno di loro
 function fetch_multiple_hash(hash){
     for(var i = 0; i < hash.length; i++){
-        let file = explorer + hash[i];
+        
+        var temp = hash[i].substr(0,1);
 
-        fetch (file)
-        .then(x => x.json())
-        .then(y => document.getElementById("demo").innerHTML += makeTable(JSON.stringify(y)));
+        if(!isNaN(temp) || temp.match(/[a-z]/i)) {
+            let file = explorer + hash[i];
+
+            fetch (file)
+            .then(x => x.json())
+            .then(y => document.getElementById("demo").innerHTML += makeTable(JSON.stringify(y)));
+        }
+        else {
+            console.log("Riga non compatibile!", "\nNumero riga nel file: " + (i + 1), "\nContenuto riga: " + hash[i]);
+            error = true;
+            checkError();
+        }
     }
 }
 
@@ -96,25 +109,44 @@ function hex_to_ascii(str1){
 // Trasforma il messaggio OP_RETURN da esadecimale a testo
 function hex_to_text(y){
     var hex = getOP_RETURN(y);
-    return hex_to_ascii(hex).replace(/[^0-9A-Za-z ,.!$&()-=@{}[]-]/g, '');
+    var temp = hex_to_ascii(hex).replace(/[^0-9A-Za-z ,.!$&()-=@{}[]-]/g, '');
+    temp = temp.substring(1);
+    return temp;
 }
 
 // Fa la ricerca su un solo hash inserito da utente
 function searchHash(){
     var hash = document.getElementById('hashUser').value;
+    sessionStorage.setItem("hashByUser", hash);
     fetch_single_hash(hash);
 }
 
 // Main
 function main(){
+    error = false;
     getLatestBlock();
     fetch (hash_txt)
     .then(x => x.text())
     .then(y => fetch_multiple_hash(y.split(/\r?\n/)));
 }
 
+function checkError(){
+    if(error == true)
+        document.getElementById("error").innerHTML = "Sono presenti degli errori, visualizzare la console per maggiori informazioni.";
+    error = false;
+}
+
 let explorer = "https://blockchain.info/rawtx/";
 let cors = "?cors=true";
+var error;
+
 let hash_txt = "../txt/hash.txt";
+//let hash_txt = "../op-return/txt/hash.txt"; // Serve per quando viene caricato online
+
 getLatestBlock();
+
+console.log("Latest block number:", sessionStorage.getItem("latestBlock"));
+
 main();
+
+checkError();
