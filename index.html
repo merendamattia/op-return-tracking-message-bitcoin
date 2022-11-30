@@ -6,8 +6,9 @@
     </head>
     <body>
 
-      <h1>Tool per visualizzare messaggi presenti in una transazione Bitcoin</h1>
+      <h1 id="header">Tracking OP_RETURN message on Bitcoin's Blockchain</h1>
 
+      <div class="center">
         <table>
           <tr>
             <th>Message</th>
@@ -19,17 +20,29 @@
         </table>
 
         <p id="demo"></p>
-        
+      </div>
         <hr>
 
-        <div class="input-group col-md-6" style="width: 50%;">
-          <div class="form-floating" >
+        <h3 class="input-group col-md-6 center">Search message</h3>
+        <div class="input-group col-md-6 center">
+          <div class="form-floating">
             <textarea class="form-control" placeholder="Cerca hash" id="hashUser"></textarea>
             <label for="floatingTextarea">Hash</label>
           </div>
           <button class="btn btn-outline-secondary" type="button" id="button-addon2" OnClick="searchHash()">Search</button>
         </div>
+
+        <p>
+          <a target="_blank" href="https://github.com/merendamattia/op-return-tracking-message-bitcoin">
+            Raw code on GitHub
+          </a>
+        </p>
         
+        <div class="center">
+          <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=023" style="width: 40px;">
+        </div>
+        
+
     </body>
     <script src="scripts/main.js"></script>
 </html>

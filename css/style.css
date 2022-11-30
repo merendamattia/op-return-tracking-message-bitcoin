@@ -10,3 +10,23 @@ td, th {
     padding: 8px;
     width: 15%;
 }
+
+.center, hr {
+    margin: auto;
+    width: 75%;
+    padding: 10px;
+}
+
+p, h1 {
+    text-align: center;
+}
+
+#header {
+    padding-top: 30px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
