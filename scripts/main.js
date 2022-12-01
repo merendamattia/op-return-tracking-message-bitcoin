@@ -49,9 +49,13 @@ function getTimestamp(y){
 // Crea e popola una tabella contenente i dati di una transazione
 function makeTable(y){
     if(y.search("error") == -1){
+        var confirmedBlock = sessionStorage.getItem("latestBlock") - getBlock(y) + 1;
+        sessionStorage.setItem("confirmedBlock", confirmedBlock);
+        console.log("confirmedBlock:", confirmedBlock);
+
         var table = "<table><tr>";
         table += ("<td>" + hex_to_text(y) + "</td>");
-        table += ("<td>" + (sessionStorage.getItem("latestBlock") - getBlock(y) + 1) + "</td>");
+        table += ("<td>" + confirmedBlock + "</td>");
         table += ("<td>" + getBlock(y) + "</td>");
         table += ("<td>" + getTimestamp(y) + "</td>");
         table += ("<td>" + "<a target=\"_blank\" href=\"https://blockchain.info/rawtx/" + getHash(y) + "\">" + getMinHash(getHash(y)) + "..</a>" + "</td>");
@@ -121,6 +125,20 @@ function searchHash(){
     fetch_single_hash(hash);
 }
 
+// Funzione che controlla se si verificano errori
+function checkError(){
+    if(error == true)
+        document.getElementById("error").innerHTML = "Sono presenti degli errori, visualizzare la console per maggiori informazioni.";
+    error = false;
+    setTimeout(verifyNegativeBlock, 2000);
+}
+
+// Se viene ritornato un valore negativo, viene aggiornata la pagina
+function verifyNegativeBlock(){
+    if(sessionStorage.getItem("confirmedBlock") < 0)
+        location.reload();
+}
+
 // Main
 function main(){
     error = false;
@@ -128,12 +146,6 @@ function main(){
     fetch (hash_txt)
     .then(x => x.text())
     .then(y => fetch_multiple_hash(y.split(/\r?\n/)));
-}
-
-function checkError(){
-    if(error == true)
-        document.getElementById("error").innerHTML = "Sono presenti degli errori, visualizzare la console per maggiori informazioni.";
-    error = false;
 }
 
 let explorer = "https://blockchain.info/rawtx/";
@@ -150,3 +162,12 @@ console.log("Latest block number:", sessionStorage.getItem("latestBlock"));
 main();
 
 checkError();
+
+
+/*
+max size op-return: https://bitcoin.stackexchange.com/questions/78572/op-return-max-bytes-clarification
+2 caratteri hex = 1 byte
+file to hex: http://tomeko.net/online_tools/file_to_hex.php?lang=en
+hex to ascii: https://www.rapidtables.com/convert/number/hex-to-ascii.html
+hex to all: https://www.scadacore.com/tools/programming-calculators/online-hex-converter/
+*/
