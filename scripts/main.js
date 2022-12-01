@@ -54,21 +54,23 @@ function makeTable(y){
         console.log("confirmedBlock:", confirmedBlock);
 
         var table = "<table><tr>";
-        table += ("<td>" + hex_to_text(y) + "</td>");
-        table += ("<td>" + confirmedBlock + "</td>");
-        table += ("<td>" + getBlock(y) + "</td>");
-        table += ("<td>" + getTimestamp(y) + "</td>");
-        table += ("<td>" + "<a target=\"_blank\" href=\"https://blockchain.info/rawtx/" + getHash(y) + "\">" + getMinHash(getHash(y)) + "..</a>" + "</td>");
+        table += ("<td class='w50'>" + hex_to_text(y) + "</td>");
+        table += ("<td class='w10'>" + confirmedBlock + "</td>");
+        table += ("<td class='w8'>" + getBlock(y) + "</td>");
+        table += ("<td class='w17'>" + getTimestamp(y) + "</td>");
+        table += ("<td class='w15'>" + "<a target=\"_blank\" href=\"https://blockchain.info/rawtx/" + getHash(y) + "\">" + getMinHash(getHash(y)) + "..</a>" + "</td>");
         table += "</tr></table>";
         return table;
     }
     else {
-        console.log("Hash non trovato nella blockchain!", "Hash cercato: " + sessionStorage.getItem("hashByUser"));
-        error = true;
+        var error_log = "<br>Hash non trovato nella blockchain!\nHash cercato: " + sessionStorage.getItem("hashByUser") + "\n";
+            
+        console.log(error_log);
+        writeError(error_log);
+
         checkError();
     }
     return "";
-    
 }
 
 // Preleva i vari hash dal file di testo, crea e popola una tabella con i relativi dati per ognuno di loro
@@ -77,7 +79,7 @@ function fetch_multiple_hash(hash){
         
         var temp = hash[i].substr(0,1);
 
-        if(!isNaN(temp) || temp.match(/[a-z]/i)) {
+        if(temp.match(/[0-9]/i) || temp.match(/[a-z]/i)) {
             let file = explorer + hash[i];
 
             fetch (file)
@@ -85,9 +87,16 @@ function fetch_multiple_hash(hash){
             .then(y => document.getElementById("demo").innerHTML += makeTable(JSON.stringify(y)));
         }
         else {
-            console.log("Riga non compatibile!", "\nNumero riga nel file: " + (i + 1), "\nContenuto riga: " + hash[i]);
-            error = true;
-            checkError();
+            if(temp != "-" && temp != ""){
+                
+                var error_log = "<br>Riga non compatibile!\nNumero riga nel file: " + (i + 1) + "\nContenuto riga: " + hash[i] + "\n";
+            
+                console.log(error_log);
+                writeError(error_log);
+                
+                checkError();
+            }
+            
         }
     }
 }
@@ -127,10 +136,12 @@ function searchHash(){
 
 // Funzione che controlla se si verificano errori
 function checkError(){
-    if(error == true)
-        document.getElementById("error").innerHTML = "Sono presenti degli errori, visualizzare la console per maggiori informazioni.";
-    error = false;
     setTimeout(verifyNegativeBlock, 2000);
+}
+
+// Scrive il tipo di errore a video
+function writeError(string){
+    document.getElementById("error").innerHTML += string;
 }
 
 // Se viene ritornato un valore negativo, viene aggiornata la pagina
@@ -150,7 +161,6 @@ function main(){
 
 let explorer = "https://blockchain.info/rawtx/";
 let cors = "?cors=true";
-var error;
 
 let hash_txt = "../txt/hash.txt";
 //let hash_txt = "../op-return/txt/hash.txt"; // Serve per quando viene caricato online

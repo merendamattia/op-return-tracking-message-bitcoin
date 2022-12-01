@@ -1,6 +1,6 @@
 # Scrivere sulla Blockchain di Bitcoin tramite `OP_RETURN`
 ## Che cos'è l' `OP_RETURN`?
-È un campo di una transazione Bitcoin che permette la scrittura di 40 byte [(Bitcoin Wiki)](https://en.bitcoin.it/wiki/Script), cioè di 40 caratteri alfanumerici a piacere, che verranno legati per sempre alla transazione. Approfondimento storia a questo [link](https://bitcoin.stackexchange.com/questions/29554/explanation-of-what-an-op-return-transaction-looks-like).
+È un campo di una transazione Bitcoin che permette la scrittura di 80 byte [(Bitcoin Wiki)](https://en.bitcoin.it/wiki/Script), cioè di 80 caratteri alfanumerici a piacere, che verranno legati per sempre alla transazione. Approfondimento storia a questo [link](https://bitcoin.stackexchange.com/questions/29554/explanation-of-what-an-op-return-transaction-looks-like).
 
 ## `OP_RETURN` in una transazione [Spiegazione]
 Questo è una transazione Bitcoin:
@@ -10,14 +10,10 @@ Questo è una transazione Bitcoin:
    ...
    "block_height":328455,
    "inputs":[
-      {
-         ...
-      }
+      { ... }
    ],
    "out":[
-      {
-         ...
-      },
+      { ... },
       {
          "type":0,
          "spent":false,
@@ -35,7 +31,8 @@ Nel nostro caso è:
 ```
 26492063616e74207365652075206275742049207374696c6c206c6f766520796f75206c696c69
 ```
-Il valore dell' `OP_RETURN` è in esadecimale, quindi per leggerlo dobbiamo convertirlo in "linguaggio umano". Si può usare questo [tool online](https://www.duplichecker.com/hex-to-text.php).  
+Il valore dell' `OP_RETURN` è in esadecimale, quindi per leggerlo dobbiamo convertirlo in "linguaggio umano".  
+Si può usare questo [tool online](https://www.duplichecker.com/hex-to-text.php).  
 Il risultato della conversione sarà:
 ```
 I cant see u but I still love you lili
@@ -48,6 +45,7 @@ git clone https://github.com/merendamattia/op-return-tracking-message-bitcoin.gi
 ```
 ### Configurazione
 Inserire nel file `hash.txt` gli hash delle transazioni dei messaggi che si vogliono tracciare, ognuno in una riga diversa.  
-L'algoritmo ignora quasiasi riga che include caratteri diversi da quelli alfanumerici.
+L'algoritmo ignora quasiasi riga che include caratteri diversi da quelli alfanumerici. 
+Il carattere `-` posto come primo carattere della riga denota la riga come un commento.
 ### Esecuzione
 Aprire il file `index.html` nel proprio browser.

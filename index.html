@@ -13,32 +13,36 @@
       <div class="center">
         <table>
           <tr>
-            <th>Message</th>
-            <th>Conferme</th>
-            <th>Block</th>
-            <th>Timestamp</th>
-            <th>Hash TX</th>
+            <th class='w50'>Message</th>
+            <th class='w10'>Conferme</th>
+            <th class='w8'>Block</th>
+            <th class='w17'>Timestamp</th>
+            <th class='w15'>Hash TX</th>
           </tr>
         </table>
 
         <p id="demo"></p>
       </div>
-        <hr>
+        
+      <hr>
 
         <!-- Input Hash da cercare  -->
-        <h3 class="input-group col-md-6 center">Search message</h3>
-        <div class="input-group col-md-6 center">
-          <div class="form-floating">
-            <textarea class="form-control" placeholder="Cerca hash" id="hashUser"></textarea>
-            <label for="floatingTextarea">Hash</label>
-          </div>
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2" OnClick="searchHash()">Search</button>
+      <h3 class="input-group col-md-6 center">Search message</h3>
+      <div class="input-group col-md-6 center">
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Cerca hash" id="hashUser"></textarea>
+          <label for="floatingTextarea">Hash</label>
         </div>
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" OnClick="searchHash()">Search</button>
+      </div>
+
+      <br>
+      <hr>
 
         <!-- Errori -->
-        <div class="center">
-          <p id="error"></p>
-        </div>
+      <div class="center">
+        <p id="error"></p>
+      </div>
 
         <!-- Reference GitHub -->
         <p>
