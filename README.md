@@ -45,7 +45,7 @@ git clone https://github.com/merendamattia/op-return-tracking-message-bitcoin.gi
 ```
 ### Configurazione
 Inserire nel file `hash.txt` gli hash delle transazioni dei messaggi che si vogliono tracciare, ognuno in una riga diversa.  
-L'algoritmo ignora quasiasi riga che include caratteri diversi da quelli alfanumerici. 
+L'algoritmo ignora quasiasi riga che include caratteri diversi da quelli alfanumerici.  
 Il carattere `-` posto come primo carattere della riga denota la riga come un commento.
 ### Esecuzione
 Aprire il file `index.html` nel proprio browser.
