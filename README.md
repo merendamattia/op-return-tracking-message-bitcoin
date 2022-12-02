@@ -1,9 +1,10 @@
-# Scrivere sulla Blockchain di Bitcoin tramite `OP_RETURN`
-## Che cos'è l' `OP_RETURN`?
-È un campo di una transazione Bitcoin che permette la scrittura di 80 byte [(Bitcoin Wiki)](https://en.bitcoin.it/wiki/Script), cioè di 80 caratteri alfanumerici a piacere, che verranno legati per sempre alla transazione. Approfondimento storia a questo [link](https://bitcoin.stackexchange.com/questions/29554/explanation-of-what-an-op-return-transaction-looks-like).
+# Write on Bitcoin's Blockchain with `OP_RETURN`
+## What is `OP_RETURN`?
+It is a Bitcoin transaction's field that allows you to write a string of 80 byte [(Bitcoin Wiki)](https://en.bitcoin.it/wiki/Script); in other words, you can write a sequence of 80 characters, that these will be linked forever in a Bitcoin's transaction.  
+You can read the full story to this [link](https://bitcoin.stackexchange.com/questions/29554/explanation-of-what-an-op-return-transaction-looks-like).
 
-## `OP_RETURN` in una transazione [Spiegazione]
-Questo è una transazione Bitcoin:
+## `OP_RETURN` in a transaction [Explained]
+This is a Bitcoin's transaction: 
 ```json
 {
    "hash":"b6abffe30b0edef88c796d0a21118046874b55c9c3b98adfb17aa6d9699e679d",
@@ -25,27 +26,41 @@ Questo è una transazione Bitcoin:
    ]
 }
 ```
-Concentriamoci nella sezione `out` (output della transazione), in particolare nella sezione `script`.  
-Possiamo avere più campi `script`, ma il valore dell' `OP_RETURN` è quella sequenza di valori alfanumerici preceduti dai caratteri "6a".  
-Nel nostro caso è:
+Let's focus on `out` section (output of the transaction), particularly on `script` section.  
+We could have more `script` fields, but the value of `OP_RETURN`is that sequence of alphanumeric values preceded by characters "6a".  
+In this case it is:
 ```
 26492063616e74207365652075206275742049207374696c6c206c6f766520796f75206c696c69
 ```
-Il valore dell' `OP_RETURN` è in esadecimale, quindi per leggerlo dobbiamo convertirlo in "linguaggio umano".  
-Si può usare questo [tool online](https://www.duplichecker.com/hex-to-text.php).  
-Il risultato della conversione sarà:
+The `OP_RETURN`'s value is in hexadecimal, so we have to translate it in "human language".  
+We can use this [online tool](https://www.duplichecker.com/hex-to-text.php).  
+The result of this conversion will be:
 ```
 I cant see u but I still love you lili
 ```
-
-## Funzionamento tool tracking messaggi `OP_RETURN`
-### Installazione
+## Run 'OP_RETURN' message tracking tool
+### Installation
 ```
 git clone https://github.com/merendamattia/op-return-tracking-message-bitcoin.git
 ```
+<<<<<<< Updated upstream
 ### Configurazione
 Inserire nel file `hash.txt` gli hash delle transazioni dei messaggi che si vogliono tracciare, ognuno in una riga diversa.  
 L'algoritmo ignora quasiasi riga che include caratteri diversi da quelli alfanumerici.  
 Il carattere `-` posto come primo carattere della riga denota la riga come un commento.
 ### Esecuzione
 Aprire il file `index.html` nel proprio browser.
+=======
+### Configuration
+Insert in the `hash.txt` file the transaction hashes of the messages you want to trace, each on a different line.
+
+The algorithm ignores any line that includes characters other than alphanumeric ones.  
+The `-` character placed as the first character of the line denotes the line as a comment.
+
+### Execution
+Open the `index.html` file in your browser.
+
+### How do I write the `OP_RETURN` in a transaction?
+I currently use the "imToken" mobile application, which allows you to populate the `OP_RETURN` field when sending a transaction.
+
+>>>>>>> Stashed changes

@@ -163,7 +163,7 @@ let explorer = "https://blockchain.info/rawtx/";
 let cors = "?cors=true";
 
 let hash_txt = "../txt/hash.txt";
-//let hash_txt = "../op-return/txt/hash.txt"; // Serve per quando viene caricato online
+//let hash_txt = "../tracking/txt/hash.txt"; // Serve per quando viene caricato online
 
 getLatestBlock();
 
