@@ -43,14 +43,6 @@ I cant see u but I still love you lili
 ```
 git clone https://github.com/merendamattia/op-return-tracking-message-bitcoin.git
 ```
-<<<<<<< Updated upstream
-### Configurazione
-Inserire nel file `hash.txt` gli hash delle transazioni dei messaggi che si vogliono tracciare, ognuno in una riga diversa.  
-L'algoritmo ignora quasiasi riga che include caratteri diversi da quelli alfanumerici.  
-Il carattere `-` posto come primo carattere della riga denota la riga come un commento.
-### Esecuzione
-Aprire il file `index.html` nel proprio browser.
-=======
 ### Configuration
 Insert in the `hash.txt` file the transaction hashes of the messages you want to trace, each on a different line.
 
@@ -63,4 +55,3 @@ Open the `index.html` file in your browser.
 ### How do I write the `OP_RETURN` in a transaction?
 I currently use the "imToken" mobile application, which allows you to populate the `OP_RETURN` field when sending a transaction.
 
->>>>>>> Stashed changes
