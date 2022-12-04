@@ -46,6 +46,34 @@ function getTimestamp(y){
     //return myDate.toGMTString();
 }
 
+// Crea un nuovo file e lo scarica
+// text: contenuto file
+// name: nome file
+function saveFile(text, name) {
+    //text = "We're no strangers to love${endl}You know the rules and so do I${endl}A full commitment's what I'm thinking of${endl}You wouldn't get this from any other guy${endl}I just wanna tell you how I'm feeling${endl}Gotta make you understand${endl}${endl}CHORUS${endl}Never gonna give you up,${endl}Never gonna let you down${endl}Never gonna run around and desert you${endl}Never gonna make you cry,${endl}Never gonna say goodbye${endl}Never gonna tell a lie and hurt you${endl}${endl}We've known each other for so long${endl}Your heart's been aching but you're too shy to say it${endl}Inside we both know what's been going on${endl}We know the game and we're gonna play it${endl}And if you ask me how I'm feeling${endl}Don't tell me you're too blind to see (CHORUS)${endl}${endl}CHORUSCHORUS${endl}(Ooh give you up)${endl}(Ooh give you up)${endl}(Ooh) never gonna give, never gonna give${endl}(give you up)${endl}(Ooh) never gonna give, never gonna give${endl}(give you up)${endl}${endl}We've known each other for so long${endl}Your heart's been aching but you're too shy to say it${endl}Inside we both know what's been going on${endl}We know the game and we're gonna play it (TO FRONT)${endl}${endl}";
+    text = "TX hash: " + name + "\n" + text;
+    name = name + ".txt";
+
+    text = text.replaceAll("${apice}", "'");
+    text = text.replaceAll("${endl}", "\n");
+    
+    
+    const file = new File([text], name, {
+        type: 'text/plain',
+    });
+    
+    const link = document.createElement('a')
+    const url = URL.createObjectURL(file)
+  
+    link.href = url
+    link.download = file.name
+    document.body.appendChild(link)
+    link.click()
+  
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+}
+
 // Crea e popola una tabella contenente i dati di una transazione
 function makeTable(y){
     if(y.search("error") == -1){
@@ -54,12 +82,26 @@ function makeTable(y){
         console.log("confirmedBlock:", confirmedBlock);
 
         var table = "<table><tr>";
-        table += ("<td class='w50'>" + hex_to_text(y) + "</td>");
-        table += ("<td class='w10'>" + confirmedBlock + "</td>");
-        table += ("<td class='w8'>" + getBlock(y) + "</td>");
-        table += ("<td class='w17'>" + getTimestamp(y) + "</td>");
-        table += ("<td class='w15'>" + "<a target=\"_blank\" href=\"https://blockchain.info/rawtx/" + getHash(y) + "\">" + getMinHash(getHash(y)) + "..</a>" + "</td>");
+        table += ("<td class='w40'>${hex_to_hash}</td>");
+        table += ("<td class='w10'>${confirmedBlock}</td>");
+        table += ("<td class='w8'>${getBlock}</td>");
+        table += ("<td class='w17'>${getTimestamp}</td>");
+        table += ("<td class='w15'><a target=\"_blank\" href=\"https://blockchain.info/rawtx/${getHash}\">${getMinHash}..</a></td>");
+        table += ("<td class='w10'><a href=\"\" onClick=\"saveFile('${hex_to_hash}', '${getHash}')\"><i class='material-icons' style='color:black;'>&#xe2c4;</i></a></td>");
         table += "</tr></table>";
+
+        // Sostituisce i caratteri speciali con caratteri temporanei che verranno risostituiti successivamente
+        var hex_to_hash = hex_to_text(y).replaceAll("\n", "${endl}").replaceAll("'", "${apice}");
+        hex_to_hash = hex_to_hash.replaceAll(/[^0-9A-Za-z <>*+"':,.!$&()-=@{}[\]-]/g, '');
+
+        table = table.replaceAll("${hex_to_hash}", hex_to_hash);
+        table = table.replaceAll("${confirmedBlock}", confirmedBlock);
+        table = table.replaceAll("${getBlock}", getBlock(y));
+        table = table.replaceAll("${getTimestamp}", getTimestamp(y));
+        table = table.replaceAll("${getHash}", getHash(y));
+        table = table.replaceAll("${getMinHash}", getMinHash(getHash(y)));
+        table = table.replaceAll("${getTimestamp}", getTimestamp(y));
+
         return table;
     }
     else {
@@ -152,7 +194,6 @@ function verifyNegativeBlock(){
 
 // Main
 function main(){
-    error = false;
     getLatestBlock();
     fetch (hash_txt)
     .then(x => x.text())
@@ -162,7 +203,7 @@ function main(){
 let explorer = "https://blockchain.info/rawtx/";
 let cors = "?cors=true";
 
-let hash_txt = "../txt/hash.txt";
+let hash_txt = "./txt/hash.txt";
 //let hash_txt = "../tracking/txt/hash.txt"; // Serve per quando viene caricato online
 
 getLatestBlock();
@@ -172,12 +213,3 @@ console.log("Latest block number:", sessionStorage.getItem("latestBlock"));
 main();
 
 checkError();
-
-
-/*
-max size op-return: https://bitcoin.stackexchange.com/questions/78572/op-return-max-bytes-clarification
-2 caratteri hex = 1 byte
-file to hex: http://tomeko.net/online_tools/file_to_hex.php?lang=en
-hex to ascii: https://www.rapidtables.com/convert/number/hex-to-ascii.html
-hex to all: https://www.scadacore.com/tools/programming-calculators/online-hex-converter/
-*/

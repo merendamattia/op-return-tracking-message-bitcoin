@@ -10,6 +10,7 @@ td, th {
     padding: 8px;
 }
 
+.w50 { width: 50%; }
 .w40 { width: 40%; }
 .w20 { width: 20%; }
 .w17 { width: 17%; }
