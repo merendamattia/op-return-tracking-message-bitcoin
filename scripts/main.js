@@ -198,6 +198,7 @@ function main(){
     fetch (hash_txt)
     .then(x => x.text())
     .then(y => fetch_multiple_hash(y.split(/\r?\n/)));
+    getFees();
 }
 
 let explorer = "https://blockchain.info/rawtx/";
@@ -213,3 +214,10 @@ console.log("Latest block number:", sessionStorage.getItem("latestBlock"));
 main();
 
 checkError();
+
+
+/*
+    TODO
+    1. Approfondire fflush per la stampa in ordine degli output
+    2. Creare la cartella man mano con la session storage
+*/

@@ -42,3 +42,13 @@ img {
     color: red;
     text-align: left;
 }
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+iframe {
+    width: 50%;
+}
+  
